@@ -155,9 +155,12 @@ http://127.0.0.1:8000
 Para realizar las pruebas iniciales del sistema se consideran las siguientes cuentas:
 
 | Usuario | Contraseña inicial |
-|---|---|
-| admin | 12345678 |
-| docente | 12345678 |
+
+Rol	        Usuario	       Contraseña
+Administrador	admin	        12345678
+Coordinador	coordinador	Coord2026!
+Docente	        docente	        12345678
+Estudiante	estudiante	Estudiante2026!
 
 **Importante:**
 
