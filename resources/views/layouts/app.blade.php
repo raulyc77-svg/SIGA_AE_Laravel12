@@ -120,7 +120,8 @@
             $usuarioMenu->tienePermiso('O24', 'modificar') ||
             $usuarioMenu->tienePermiso('O33', 'visualizar') ||
             $usuarioMenu->tienePermiso('O33', 'modificar') ||
-            $usuarioMenu->tienePermiso('O34', 'visualizar')
+            $usuarioMenu->tienePermiso('O34', 'visualizar') ||
+            $usuarioMenu->tienePermiso('O35', 'visualizar')
         )
 
             <div class="menu-label">Consultas</div>
@@ -155,7 +156,21 @@
                 </a>
             @endif
 
+            {{-- O35 - ACTA CONSOLIDADA --}}
+            @if($usuarioMenu->tienePermiso('O35', 'visualizar'))
+                <a href="{{ url('/evaluaciones/acta/1') }}">
+                    Acta Consolidada
+                </a>
+            @endif
+
         @endif
+
+        {{-- CUENTA Y PERFIL --}}
+        <div class="menu-label">Cuenta</div>
+
+        <a href="{{ route('perfil.password') }}">
+            Mi perfil / Cambiar contraseña
+        </a>
 
         {{-- CERRAR SESIÓN --}}
         <div class="p-3 mt-3">
