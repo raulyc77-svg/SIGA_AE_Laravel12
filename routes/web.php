@@ -33,121 +33,156 @@ Route::middleware('auth')->group(function () {
 
     // O11 - ESTUDIANTES
     Route::get('/estudiantes', [EstudianteController::class, 'index'])
-        ->middleware('permiso:O11,visualizar')->name('estudiantes.index');
+        ->middleware('permiso:O11,visualizar')
+        ->name('estudiantes.index');
 
     Route::get('/estudiantes/crear', [EstudianteController::class, 'create'])
-        ->middleware('permiso:O11,modificar')->name('estudiantes.create');
+        ->middleware('permiso:O11,modificar')
+        ->name('estudiantes.create');
 
     Route::post('/estudiantes', [EstudianteController::class, 'store'])
-        ->middleware('permiso:O11,modificar')->name('estudiantes.store');
+        ->middleware('permiso:O11,modificar')
+        ->name('estudiantes.store');
 
     Route::get('/estudiantes/{estudiante}/editar', [EstudianteController::class, 'edit'])
-        ->middleware('permiso:O11,modificar')->name('estudiantes.edit');
+        ->middleware('permiso:O11,modificar')
+        ->name('estudiantes.edit');
 
     Route::put('/estudiantes/{estudiante}', [EstudianteController::class, 'update'])
-        ->middleware('permiso:O11,modificar')->name('estudiantes.update');
+        ->middleware('permiso:O11,modificar')
+        ->name('estudiantes.update');
 
     Route::patch('/estudiantes/{estudiante}', [EstudianteController::class, 'update'])
         ->middleware('permiso:O11,modificar');
 
     Route::delete('/estudiantes/{estudiante}', [EstudianteController::class, 'destroy'])
-        ->middleware('permiso:O11,modificar')->name('estudiantes.destroy');
+        ->middleware('permiso:O11,modificar')
+        ->name('estudiantes.destroy');
 
 
     // O12 - DOCENTES
     Route::get('/docentes', [DocenteController::class, 'index'])
-        ->middleware('permiso:O12,visualizar')->name('docentes.index');
+        ->middleware('permiso:O12,visualizar')
+        ->name('docentes.index');
 
     Route::get('/docentes/crear', [DocenteController::class, 'create'])
-        ->middleware('permiso:O12,modificar')->name('docentes.create');
+        ->middleware('permiso:O12,modificar')
+        ->name('docentes.create');
 
     Route::post('/docentes', [DocenteController::class, 'store'])
-        ->middleware('permiso:O12,modificar')->name('docentes.store');
+        ->middleware('permiso:O12,modificar')
+        ->name('docentes.store');
 
     Route::get('/docentes/{docente}/editar', [DocenteController::class, 'edit'])
-        ->middleware('permiso:O12,modificar')->name('docentes.edit');
+        ->middleware('permiso:O12,modificar')
+        ->name('docentes.edit');
 
     Route::put('/docentes/{docente}', [DocenteController::class, 'update'])
-        ->middleware('permiso:O12,modificar')->name('docentes.update');
+        ->middleware('permiso:O12,modificar')
+        ->name('docentes.update');
 
     Route::delete('/docentes/{docente}', [DocenteController::class, 'destroy'])
-        ->middleware('permiso:O12,modificar')->name('docentes.destroy');
+        ->middleware('permiso:O12,modificar')
+        ->name('docentes.destroy');
 
 
     // O15 - ITINERARIOS / UNIDADES DIDÁCTICAS
     Route::get('/unidades-didacticas', [UnidadDidacticaController::class, 'index'])
-        ->middleware('permiso:O15,visualizar')->name('unidades-didacticas.index');
+        ->middleware('permiso:O15,visualizar')
+        ->name('unidades-didacticas.index');
 
     Route::get('/unidades-didacticas/crear', [UnidadDidacticaController::class, 'create'])
-        ->middleware('permiso:O15,modificar')->name('unidades-didacticas.create');
+        ->middleware('permiso:O15,modificar')
+        ->name('unidades-didacticas.create');
 
     Route::post('/unidades-didacticas', [UnidadDidacticaController::class, 'store'])
-        ->middleware('permiso:O15,modificar')->name('unidades-didacticas.store');
+        ->middleware('permiso:O15,modificar')
+        ->name('unidades-didacticas.store');
 
     Route::get('/unidades-didacticas/{unidad_didactica}/editar', [UnidadDidacticaController::class, 'edit'])
-        ->middleware('permiso:O15,modificar')->name('unidades-didacticas.edit');
+        ->middleware('permiso:O15,modificar')
+        ->name('unidades-didacticas.edit');
 
     Route::put('/unidades-didacticas/{unidad_didactica}', [UnidadDidacticaController::class, 'update'])
-        ->middleware('permiso:O15,modificar')->name('unidades-didacticas.update');
+        ->middleware('permiso:O15,modificar')
+        ->name('unidades-didacticas.update');
 
     Route::patch('/unidades-didacticas/{unidad_didactica}', [UnidadDidacticaController::class, 'update'])
         ->middleware('permiso:O15,modificar');
 
     Route::delete('/unidades-didacticas/{unidad_didactica}', [UnidadDidacticaController::class, 'destroy'])
-        ->middleware('permiso:O15,modificar')->name('unidades-didacticas.destroy');
+        ->middleware('permiso:O15,modificar')
+        ->name('unidades-didacticas.destroy');
 
 
     // O32 - CONSULTA DE ASISTENCIA
     // O25 - REGISTRO DE ASISTENCIA
     Route::get('/asistencias', [AsistenciaController::class, 'index'])
-        ->middleware('permiso:O32,visualizar')->name('asistencias.index');
+        ->middleware('permiso:O32,visualizar')
+        ->name('asistencias.index');
 
     Route::get('/asistencias/resumen', [AsistenciaController::class, 'resumen'])
-        ->middleware('permiso:O32,visualizar')->name('asistencias.resumen');
+        ->middleware('permiso:O32,visualizar')
+        ->name('asistencias.resumen');
 
     Route::get('/asistencias/crear', [AsistenciaController::class, 'create'])
-        ->middleware('permiso:O25,modificar')->name('asistencias.create');
+        ->middleware('permiso:O25,modificar')
+        ->name('asistencias.create');
 
     Route::post('/asistencias', [AsistenciaController::class, 'store'])
-        ->middleware('permiso:O25,modificar')->name('asistencias.store');
+        ->middleware('permiso:O25,modificar')
+        ->name('asistencias.store');
 
     Route::get('/asistencias/{id}/tomar', [AsistenciaController::class, 'tomar'])
-        ->middleware('permiso:O25,modificar')->name('asistencias.tomar');
+        ->middleware('permiso:O25,modificar')
+        ->name('asistencias.tomar');
 
     Route::put('/asistencias/{id}', [AsistenciaController::class, 'guardar'])
-        ->middleware('permiso:O25,modificar')->name('asistencias.guardar');
+        ->middleware('permiso:O25,modificar')
+        ->name('asistencias.guardar');
 
 
     // O23 - INDICADORES
     Route::get('/evaluaciones/criterios', [EvaluacionController::class, 'criterios'])
-        ->middleware('permiso:O23,modificar')->name('evaluaciones.criterios');
+        ->middleware('permiso:O23,modificar')
+        ->name('evaluaciones.criterios');
 
     Route::post('/evaluaciones/criterios', [EvaluacionController::class, 'guardarCriterio'])
-        ->middleware('permiso:O23,modificar')->name('evaluaciones.criterios.store');
+        ->middleware('permiso:O23,modificar')
+        ->name('evaluaciones.criterios.store');
 
 
     // O24 / O33 - EVALUACIONES Y REGISTRO DE NOTAS
-    // Se conserva la autorización de modificación O33.
     Route::get('/evaluaciones', [EvaluacionController::class, 'index'])
-        ->middleware('permiso:O33,modificar')->name('evaluaciones.index');
+        ->middleware('permiso:O33,modificar')
+        ->name('evaluaciones.index');
 
     Route::get('/evaluaciones/matriz', [EvaluacionController::class, 'matriz'])
-        ->middleware('permiso:O33,modificar')->name('evaluaciones.matriz');
+        ->middleware('permiso:O33,modificar')
+        ->name('evaluaciones.matriz');
 
     Route::post('/evaluaciones/notas', [EvaluacionController::class, 'guardarNotas'])
-        ->middleware('permiso:O33,modificar')->name('evaluaciones.notas');
+        ->middleware('permiso:O33,modificar')
+        ->name('evaluaciones.notas');
 
     Route::get('/evaluaciones/promedios/{carga}', [EvaluacionController::class, 'promedios'])
-        ->middleware('permiso:O33,modificar')->name('evaluaciones.promedios');
+        ->middleware('permiso:O33,modificar')
+        ->name('evaluaciones.promedios');
 
 
-    // O34 - BOLETA
+    // O34 - BOLETA DE NOTAS
+    Route::get('/reportes/boletas', [ReporteController::class, 'boletas'])
+        ->middleware('permiso:O34,visualizar')
+        ->name('reportes.boletas');
+
     Route::get('/reportes/boleta/{matricula}', [ReporteController::class, 'boleta'])
-        ->middleware('permiso:O34,visualizar')->name('reportes.boleta');
+        ->middleware('permiso:O34,visualizar')
+        ->name('reportes.boleta');
 
 
     // O35 - ACTA CONSOLIDADA
     Route::get('/evaluaciones/acta/{carga}', [ReporteController::class, 'acta'])
-        ->middleware('permiso:O35,visualizar')->name('reportes.acta');
+        ->middleware('permiso:O35,visualizar')
+        ->name('reportes.acta');
 
 });
