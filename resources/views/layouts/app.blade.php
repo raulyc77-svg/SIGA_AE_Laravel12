@@ -76,7 +76,10 @@
         <div class="brand">SIGA-AE</div>
 
         <div class="menu-label">General</div>
-        <a href="{{ route('dashboard') }}">Panel principal</a>
+
+        <a href="{{ route('dashboard') }}">
+            Panel principal
+        </a>
 
         @php($usuarioMenu = auth()->user())
 
@@ -90,11 +93,15 @@
             <div class="menu-label">Archivos</div>
 
             @if($usuarioMenu->tienePermiso('O11', 'visualizar') || $usuarioMenu->tienePermiso('O11', 'modificar'))
-                <a href="{{ route('estudiantes.index') }}">Estudiantes</a>
+                <a href="{{ route('estudiantes.index') }}">
+                    Estudiantes
+                </a>
             @endif
 
             @if($usuarioMenu->tienePermiso('O12', 'visualizar') || $usuarioMenu->tienePermiso('O12', 'modificar'))
-                <a href="{{ route('docentes.index') }}">Docentes</a>
+                <a href="{{ route('docentes.index') }}">
+                    Docentes
+                </a>
             @endif
         @endif
 
@@ -106,33 +113,55 @@
         @endif
 
         {{-- CONSULTAS --}}
-        @if($usuarioMenu->tienePermiso('O32', 'visualizar') || $usuarioMenu->tienePermiso('O32', 'modificar'))
-            <div class="menu-label">Consultas</div>
-
-            <a href="{{ route('asistencias.index') }}">
-                Asistencia de estudiantes
-            </a>
-        @endif
-
         @if(
+            $usuarioMenu->tienePermiso('O32', 'visualizar') ||
+            $usuarioMenu->tienePermiso('O32', 'modificar') ||
             $usuarioMenu->tienePermiso('O24', 'visualizar') ||
             $usuarioMenu->tienePermiso('O24', 'modificar') ||
             $usuarioMenu->tienePermiso('O33', 'visualizar') ||
-            $usuarioMenu->tienePermiso('O33', 'modificar')
+            $usuarioMenu->tienePermiso('O33', 'modificar') ||
+            $usuarioMenu->tienePermiso('O34', 'visualizar')
         )
-            <a href="{{ route('evaluaciones.index') }}">Evaluaciones</a>
-        @endif
 
-        @if($usuarioMenu->tienePermiso('O32', 'visualizar') || $usuarioMenu->tienePermiso('O32', 'modificar'))
-            <a href="{{ route('asistencias.resumen') }}">
-                Resumen de inasistencias
-            </a>
+            <div class="menu-label">Consultas</div>
+
+            {{-- ASISTENCIA --}}
+            @if($usuarioMenu->tienePermiso('O32', 'visualizar') || $usuarioMenu->tienePermiso('O32', 'modificar'))
+                <a href="{{ route('asistencias.index') }}">
+                    Asistencia de estudiantes
+                </a>
+
+                <a href="{{ route('asistencias.resumen') }}">
+                    Resumen de inasistencias
+                </a>
+            @endif
+
+            {{-- EVALUACIONES --}}
+            @if(
+                $usuarioMenu->tienePermiso('O24', 'visualizar') ||
+                $usuarioMenu->tienePermiso('O24', 'modificar') ||
+                $usuarioMenu->tienePermiso('O33', 'visualizar') ||
+                $usuarioMenu->tienePermiso('O33', 'modificar')
+            )
+                <a href="{{ route('evaluaciones.index') }}">
+                    Evaluaciones
+                </a>
+            @endif
+
+            {{-- O34 - BOLETA DE NOTAS --}}
+            @if($usuarioMenu->tienePermiso('O34', 'visualizar'))
+                <a href="{{ route('reportes.boletas') }}">
+                    Boleta de Notas
+                </a>
+            @endif
+
         @endif
 
         {{-- CERRAR SESIÓN --}}
         <div class="p-3 mt-3">
             <form method="POST" action="{{ route('logout') }}">
                 @csrf
+
                 <button class="btn btn-outline-light btn-sm w-100">
                     Cerrar sesión
                 </button>
