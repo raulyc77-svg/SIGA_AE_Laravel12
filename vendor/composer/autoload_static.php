@@ -538,6 +538,7 @@ class ComposerStaticInitb15f815f39e1440b58aa78ba20517b81
         'App\\Http\\Controllers\\AuthController' => __DIR__ . '/../..' . '/app/Http/Controllers/AuthController.php',
         'App\\Http\\Controllers\\Controller' => __DIR__ . '/../..' . '/app/Http/Controllers/Controller.php',
         'App\\Http\\Controllers\\DashboardController' => __DIR__ . '/../..' . '/app/Http/Controllers/DashboardController.php',
+        'App\\Http\\Controllers\\DocenteController' => __DIR__ . '/../..' . '/app/Http/Controllers/DocenteController.php',
         'App\\Http\\Controllers\\EstudianteController' => __DIR__ . '/../..' . '/app/Http/Controllers/EstudianteController.php',
         'App\\Http\\Controllers\\EvaluacionController' => __DIR__ . '/../..' . '/app/Http/Controllers/EvaluacionController.php',
         'App\\Http\\Controllers\\ReporteController' => __DIR__ . '/../..' . '/app/Http/Controllers/ReporteController.php',

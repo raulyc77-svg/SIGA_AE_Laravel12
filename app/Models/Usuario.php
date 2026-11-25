@@ -1,58 +1,115 @@
 <?php
-
 namespace App\Models;
 
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Support\Facades\DB;
 
 class Usuario extends Authenticatable
 {
     protected $table = 'usuarios';
 
-    protected $fillable = ['username', 'email', 'password', 'activo', 'primer_inicio', 'ultimo_acceso'];
-    protected $hidden = ['password', 'remember_token'];
+    protected $fillable = [
+        'username',
+        'email',
+        'password',
+        'activo',
+        'primer_inicio',
+        'ultimo_acceso',
+    ];
+
+    protected $hidden = [
+        'password',
+        'remember_token',
+    ];
+
     protected $casts = [
         'activo' => 'boolean',
         'primer_inicio' => 'boolean',
         'ultimo_acceso' => 'datetime',
     ];
 
+    /**
+     * Roles asignados al usuario.
+     */
     public function roles(): BelongsToMany
     {
-        return $this->belongsToMany(Rol::class, 'usuario_rol');
+        return $this->belongsToMany(
+            Rol::class,
+            'usuario_rol',
+            'usuario_id',
+            'rol_id'
+        );
     }
 
-    public function docente()
+    /**
+     * Relación con el docente.
+     */
+    public function docente(): HasOne
     {
         return $this->hasOne(Docente::class, 'usuario_id');
     }
 
-    public function estudiante()
+    /**
+     * Relación con el estudiante.
+     */
+    public function estudiante(): HasOne
     {
         return $this->hasOne(Estudiante::class, 'usuario_id');
     }
 
+    /**
+     * Comprueba si el usuario tiene un rol determinado.
+     */
     public function tieneRol(string $nombre): bool
     {
-        return $this->roles()->where('nombre', $nombre)->exists();
+        return $this->roles()
+            ->where('nombre', $nombre)
+            ->exists();
     }
 
-    public function tienePermiso(string $codigo, string $accion = 'visualizar'): bool
-    {
+    /**
+     * Comprueba los permisos de visualización o modificación.
+     */
+    public function tienePermiso(
+        string $codigo,
+        string $accion = 'visualizar'
+    ): bool {
+
         if (!in_array($accion, ['visualizar', 'modificar'], true)) {
             return false;
         }
 
-        $columna = $accion === 'modificar' ? 'puede_modificar' : 'puede_visualizar';
+        $columna = $accion === 'modificar'
+            ? 'puede_modificar'
+            : 'puede_visualizar';
 
         return DB::table('usuario_rol')
-            ->join('roles', 'roles.id', '=', 'usuario_rol.rol_id')
-            ->join('permiso_rol', 'permiso_rol.rol_id', '=', 'roles.id')
-            ->join('permisos', 'permisos.id', '=', 'permiso_rol.permiso_id')
-            ->where('usuario_rol.usuario_id', $this->getKey())
+            ->join(
+                'roles',
+                'roles.id',
+                '=',
+                'usuario_rol.rol_id'
+            )
+            ->join(
+                'permiso_rol',
+                'permiso_rol.rol_id',
+                '=',
+                'roles.id'
+            )
+            ->join(
+                'permisos',
+                'permisos.id',
+                '=',
+                'permiso_rol.permiso_id'
+            )
+            ->where(
+                'usuario_rol.usuario_id',
+                $this->getKey()
+            )
             ->where('permisos.codigo', $codigo)
-            ->where("permiso_rol.{$columna}", true)
+            ->where("permiso_rol.{$columna}", 1)
             ->exists();
     }
 }
