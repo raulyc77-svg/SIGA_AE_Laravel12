@@ -85,7 +85,7 @@ Route::middleware('auth')->group(function () {
         ->middleware('permiso:O15,modificar')->name('unidades-didacticas.store');
 
     Route::get('/unidades-didacticas/{unidad_didactica}/editar', [UnidadDidacticaController::class, 'edit'])
-        ->middleware('permiso:O15,modificar')->name('unidades-didacticas.edit');
+        ->middleware('permiso:O15,modificar')->name('unidades-didacticas.update');
 
     Route::put('/unidades-didacticas/{unidad_didactica}', [UnidadDidacticaController::class, 'update'])
         ->middleware('permiso:O15,modificar')->name('unidades-didacticas.update');
@@ -98,7 +98,7 @@ Route::middleware('auth')->group(function () {
 
 
     // O32 - CONSULTA DE ASISTENCIA
-    // O25 - PROCESO PARA PASAR LISTA
+    // O25 - REGISTRO DE ASISTENCIA
     Route::get('/asistencias', [AsistenciaController::class, 'index'])
         ->middleware('permiso:O32,visualizar')->name('asistencias.index');
 
@@ -118,26 +118,27 @@ Route::middleware('auth')->group(function () {
         ->middleware('permiso:O25,modificar')->name('asistencias.guardar');
 
 
-    // O24 - EVALUACIONES
     // O23 - INDICADORES
-    // O33 - REGISTRO DE NOTAS
-    Route::get('/evaluaciones', [EvaluacionController::class, 'index'])
-        ->middleware('permiso:O33,visualizar')->name('evaluaciones.index');
-
     Route::get('/evaluaciones/criterios', [EvaluacionController::class, 'criterios'])
         ->middleware('permiso:O23,modificar')->name('evaluaciones.criterios');
 
     Route::post('/evaluaciones/criterios', [EvaluacionController::class, 'guardarCriterio'])
         ->middleware('permiso:O23,modificar')->name('evaluaciones.criterios.store');
 
+
+    // O24 / O33 - EVALUACIONES Y REGISTRO DE NOTAS
+    // Administrador, Coordinador y Docente tienen O33 para modificar.
+    Route::get('/evaluaciones', [EvaluacionController::class, 'index'])
+        ->middleware('permiso:O33,modificar')->name('evaluaciones.index');
+
     Route::get('/evaluaciones/matriz', [EvaluacionController::class, 'matriz'])
-        ->middleware('permiso:O33,visualizar')->name('evaluaciones.matriz');
+        ->middleware('permiso:O33,modificar')->name('evaluaciones.matriz');
 
     Route::post('/evaluaciones/notas', [EvaluacionController::class, 'guardarNotas'])
         ->middleware('permiso:O33,modificar')->name('evaluaciones.notas');
 
     Route::get('/evaluaciones/promedios/{carga}', [EvaluacionController::class, 'promedios'])
-        ->middleware('permiso:O33,visualizar')->name('evaluaciones.promedios');
+        ->middleware('permiso:O33,modificar')->name('evaluaciones.promedios');
 
 
     // O34 - BOLETA
