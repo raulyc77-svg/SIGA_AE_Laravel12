@@ -1,0 +1,34 @@
+ACTUALIZACION SIGA-AE - ROLES Y PERMISOS
+
+Esta actualización implementa los cuatro roles y la matriz de permisos de la hoja compartida:
+- Administrador
+- Coordinador Programa Estudios
+- Docente
+- Estudiante
+
+Distingue visualización de modificación mediante dos columnas nuevas en la tabla pivote permiso_rol.
+La migración es incremental: NO elimina tablas, usuarios, asignaturas ni registros existentes.
+El seeder actualiza la asignación de permisos de los cuatro roles y conserva el usuario administrador.
+Las rutas implementadas comprueban permisos en el servidor; ocultar enlaces del menú no es la única protección.
+
+ANTES DE INSTALAR
+1. Haz una copia de seguridad de la carpeta del proyecto y exporta la base siga_ae desde phpMyAdmin.
+2. Detén el servidor Laravel con Ctrl+C.
+3. Extrae el contenido del ZIP en C:\xampp\htdocs\SIGA_AE_Laravel12\SIGA_AE_Laravel12 y acepta reemplazar los archivos indicados.
+4. No reemplaces .env ni elimines vendor.
+
+COMANDOS (PowerShell, desde la carpeta del proyecto)
+php artisan optimize:clear
+php artisan migrate
+php artisan db:seed
+php artisan optimize:clear
+php artisan route:list
+php artisan serve
+
+IMPORTANTE
+- La migración 000002 agrega puede_visualizar y puede_modificar a permiso_rol.
+- db:seed sincroniza la matriz de permisos; no vuelve a insertar las 10 asignaturas.
+- La matriz sigue la hoja del usuario: Administrador visualiza todos; Coordinador visualiza O11,O12,O13,O16 y modifica O14,O15,O22,O31-O35,O41; Docente visualiza O11,O15 y modifica O23,O24,O25,O32,O33,O41; Estudiante visualiza O14,O15,O32,O34,O41.
+- O21 aparece en el catálogo, pero la hoja no asigna ese permiso a ningún rol.
+- Algunas pantallas del sistema todavía no están desarrolladas. Los permisos para ellas quedan registrados, pero no se inventan módulos que aún no existen.
+- El acceso del Estudiante a su información propia requiere completar el portal de estudiante y sus filtros por usuario; esta actualización registra su rol y protege las rutas existentes, pero no crea ese portal.
